@@ -1,4 +1,4 @@
-package com.bridgelabz.statement.repository;
+package com.bridgelabz.callable.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,8 @@ import java.sql.SQLException;
 
 public class JdbcConnectivity {
 
-	static String url = "jdbc:mysql://localhost:3306/CrudDB?autoReconnect=true&useSSL=false";// uniform resource locator
+	static String url = "jdbc:mysql://localhost:3306/CrudDB?autoReconnect=true&useSSL=false"; // uniform resource
+																								// locator
 	static String user = "root"; // mysql user id
 	static String pass = "root"; // mysql user password
 	static Connection con = null;

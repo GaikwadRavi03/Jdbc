@@ -3,11 +3,12 @@ package com.bridgelabz.statement.services;
 import com.bridgelabz.statement.model.Users;
 
 public interface UserLogin {
-	public void insertIntoUser(Users user);
 
-	public void updateIntoUser();
+	public void insertIntoUser(Users user);
 
 	public void readFromUser();
 
-	public void deletefromUser();
+	void deletefromUser(int id);
+
+	void updateIntoUser(int userid, Users user);
 }

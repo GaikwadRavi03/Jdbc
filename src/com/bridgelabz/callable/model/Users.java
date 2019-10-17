@@ -1,4 +1,4 @@
-package com.bridgelabz.statement.model;
+package com.bridgelabz.callable.model;
 
 public class Users {
 	private int user_id;

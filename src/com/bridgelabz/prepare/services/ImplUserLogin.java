@@ -1,44 +1,45 @@
-package com.bridgelabz.statement.services;
+package com.bridgelabz.prepare.services;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Scanner;
-
-import com.bridgelabz.statement.model.Users;
-import com.bridgelabz.statement.repository.JdbcConnectivity;
+import com.bridgelabz.prepare.model.Users;
+import com.bridgelabz.prepare.repository.JdbcConnectivity;
 import com.mysql.jdbc.Connection;
 
 public class ImplUserLogin implements UserLogin {
 
-	static Connection con = (Connection) JdbcConnectivity.getConnection(); // Method call for DB connection
-	static Statement stmt = null;	// Create object of Statement
+	static Connection con = (Connection) JdbcConnectivity.getConnection();	// Method call for DB connection
+	static PreparedStatement pstmt = null;		// Create object of PrepareStatement
 
 	/**
 	 * Purpose : Insert new user in DataBase.
 	 */
 	@Override
-	public void insertIntoUser(Users user) {
+	public int insertIntoUser(Users user) throws SQLException {
 		// TODO Auto-generated method stub
-		try {
-			String query = "INSERT INTO Users VALUES(" + user.getUser_id() + " ,'" + user.getUsername() + "','"
-					+ user.getGmail() + "','" + user.getPassword() + "')";
+		String query = "INSERT INTO Users VALUES(?,?,?,?)";
 
-			stmt = con.createStatement(); // Create a statement
-			stmt.executeUpdate(query); // Execute the Query
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		pstmt = con.prepareStatement(query);
+
+		pstmt.setInt(1, user.getUser_id());
+		pstmt.setString(2, (user.getUsername()));
+		pstmt.setString(3, (user.getGmail()));
+		pstmt.setString(4, (user.getPassword()));
+
+		return pstmt.executeUpdate();
 	}
 
 	/**
 	 * Purpose : Update the user data from database and stored in database.
 	 */
 	@Override
-	public void updateIntoUser(int id, Users user) {
+	public int updateIntoUser(int id, Users user) {
 		// TODO Auto-generated method stub
 		try {
 			System.out.println("1.name\n2.gmail\n3.password\n4.exit");
+			@SuppressWarnings("resource")
 			Scanner sc = new Scanner(System.in);
 			int ch1 = sc.nextInt();
 			switch (ch1) {
@@ -47,9 +48,9 @@ public class ImplUserLogin implements UserLogin {
 				String name = sc.next();
 				String query = "UPDATE Users SET  username= '" + name + "' WHERE user_id= " + id;
 				try {
-					stmt = con.createStatement(); // Create a statement
-					stmt.executeUpdate(query); // Execute Query
+					pstmt = con.prepareStatement(query);
 					System.out.println("user name update");
+					return pstmt.executeUpdate();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -61,9 +62,9 @@ public class ImplUserLogin implements UserLogin {
 				String gmail = sc.next();
 				String query1 = "UPDATE Users SET  gmail= '" + gmail + "' WHERE user_id= " + id;
 				try {
-					stmt = con.createStatement(); // Create a statement
-					stmt.executeUpdate(query1); // Execute Query
+					pstmt = con.prepareStatement(query1);
 					System.out.println("user mail update");
+					return pstmt.executeUpdate();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -75,9 +76,9 @@ public class ImplUserLogin implements UserLogin {
 				String pass = sc.next();
 				String query2 = "UPDATE Users SET  password= '" + pass + "' WHERE user_id= " + id;
 				try {
-					stmt = con.createStatement(); // Create a statement
-					stmt.executeUpdate(query2); // Execute Query
+					pstmt = con.prepareStatement(query2);
 					System.out.println("user password update");
+					return pstmt.executeUpdate();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -95,6 +96,7 @@ public class ImplUserLogin implements UserLogin {
 		} catch (Exception e) {
 			System.out.println("Invalid choice");
 		}
+		return 0;
 	}
 
 	/**
@@ -106,9 +108,9 @@ public class ImplUserLogin implements UserLogin {
 		try {
 			String query = "select * from Users";
 
-			stmt = con.createStatement(); // Create a statement
-			ResultSet rs = stmt.executeQuery(query); // Execute Query
-			while (rs.next()) { // process for Result
+			pstmt = con.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery(query);
+			while (rs.next()) {
 				System.out.println("user_id: " + rs.getInt(1) + " username: " + rs.getString(2) + " gmail: "
 						+ rs.getString(3) + " password: " + rs.getString(4));
 			}
@@ -121,16 +123,17 @@ public class ImplUserLogin implements UserLogin {
 	/**
 	 * Purpose : Delete the user from DataBase.
 	 */
-	public void deletefromUser(int id) {
+	public int deletefromUser(int id) {
 		// TODO Auto-generated method stub
 		try {
 			String query = "delete from Users where user_id=" + id;
 
-			stmt = con.createStatement(); // Create a statement
-			stmt.executeUpdate(query); // Execute Query
+			pstmt = con.prepareStatement(query);
+			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return 0;
 	}
 }
