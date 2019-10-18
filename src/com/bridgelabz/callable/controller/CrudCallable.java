@@ -29,7 +29,7 @@ public class CrudCallable {
 					System.out.println("Enter user password");
 					user.setPassword(sc.next());
 
-					userLogin.insertIntoUser(user);
+					userLogin.insertIntoUser(user); // Function call for Add new user in DataBase.
 					System.out.println("User added successfully");
 					break;
 
