@@ -8,6 +8,7 @@ import com.bridgelabz.prepare.services.ImplUserLogin;
 
 public class CrudPrepareStatement {
 
+	@SuppressWarnings("resource")
 	public static void main(String[] args) throws SQLException {
 
 		ImplUserLogin userLogin = new ImplUserLogin();

@@ -6,6 +6,7 @@ import com.bridgelabz.statement.model.Users;
 import com.bridgelabz.statement.services.ImplUserLogin;
 
 public class CrudStatement {
+	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 
 		ImplUserLogin userLogin = new ImplUserLogin();// create object of ImplUserLogin class

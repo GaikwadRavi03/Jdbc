@@ -34,6 +34,7 @@ public class ImplUserLogin implements UserLogin {
 	/**
 	 * Purpose : Update the user data from database and stored in database.
 	 */
+	@SuppressWarnings("resource")
 	@Override
 	public void updateIntoUser(int id, Users user) {
 		// TODO Auto-generated method stub

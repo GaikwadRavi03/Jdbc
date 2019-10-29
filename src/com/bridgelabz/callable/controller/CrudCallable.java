@@ -8,6 +8,7 @@ import com.bridgelabz.callable.services.ImplUserLogin;
 
 public class CrudCallable {
 
+	@SuppressWarnings("resource")
 	public static void main(String[] args) throws SQLException {
 
 		ImplUserLogin userLogin = new ImplUserLogin();
